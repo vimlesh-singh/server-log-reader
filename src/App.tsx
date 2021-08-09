@@ -1,10 +1,20 @@
+import React, { useState } from 'react';
 import './App.css';
 import Input from './components/input/Input';
 
+import findDuplicate from './utils/findDuplicate';
+
 function App() {
+  const [visitedPagesCount, setVisitedPagesCount] = useState([
+    { name: '', count: 0 },
+  ]);
+  const [uniqueVisitedPagesCount, setuniqueVisitedPagesCount] = useState([
+    { name: '', count: 0 },
+  ]);
+
   const readFile = (file: any) => {
     // Check if the file type is .log.
-    console.log(file);
+    // console.log(file);
     // if (file.name && !file.name.endsWith('.log')) {
     //   console.log('File is not supported.', file.type, file);
     //   alert(`'File is not supported.', ${file.type}, ${file.name}`)
@@ -37,7 +47,13 @@ function App() {
           }
         }
       });
-      console.log({ visitedPages, uniqueVisitedPages });
+      console.log({
+        visitedPages: findDuplicate(visitedPages),
+        visitedIp: findDuplicate(visitedIpList),
+        uniqueVisitedPages: findDuplicate(uniqueVisitedPages),
+      });
+      setVisitedPagesCount(findDuplicate(visitedPages));
+      setuniqueVisitedPagesCount(findDuplicate(uniqueVisitedPages));
     });
     reader.readAsText(file);
   };
