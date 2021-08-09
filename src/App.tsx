@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Input from './components/input/Input';
+import List from './components/list/List';
 
 import findDuplicate from './utils/findDuplicate';
 
@@ -47,11 +48,6 @@ function App() {
           }
         }
       });
-      console.log({
-        visitedPages: findDuplicate(visitedPages),
-        visitedIp: findDuplicate(visitedIpList),
-        uniqueVisitedPages: findDuplicate(uniqueVisitedPages),
-      });
       setVisitedPagesCount(findDuplicate(visitedPages));
       setuniqueVisitedPagesCount(findDuplicate(uniqueVisitedPages));
     });
@@ -69,6 +65,10 @@ function App() {
       </header>
       <main>
         <Input type='file' label='File input' onChange={handleInputChange} />
+        <div className={'list-container'}>
+          <List data={visitedPagesCount} item='Visits' />
+          <List data={uniqueVisitedPagesCount} item='Unique views' />
+        </div>
       </main>
     </div>
   );
